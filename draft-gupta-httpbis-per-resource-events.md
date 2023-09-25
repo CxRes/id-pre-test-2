@@ -9,19 +9,19 @@ number:
 date:
 consensus: true
 v: 3
-area: AREA
-area: art
-workgroup: HTTPbis
+area: "Applications and Real-Time"
+area: "Applications and Real-Time"
+workgroup: "HTTP"
 keyword:
   - notifications
   - pubsub
 venue:
-  group: WG
-  type: Working Group
-  mail: WG@example.com
-  arch: https://example.com/WG
-  github: USER/REPO
-  latest: https://example.com/LATEST
+  group: "HTTP"
+  type: "Working Group"
+  mail: "ietf-http-wg@w3.org"
+  arch: "https://lists.w3.org/Archives/Public/ietf-http-wg/"
+  github: "CxRes/id-pre-test-2"
+  latest: "https://CxRes.github.io/id-pre-test-2/draft-gupta-httpbis-per-resource-events.html"
 
 author:
  -
