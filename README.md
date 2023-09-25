@@ -1,16 +1,11 @@
-# Internet-Draft Template Repository
+# Per Resource Events Protocol
 
-Use this repository as a template if you want to start working on
-[IETF](https://www.ietf.org/) documents.
+> “Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.”
+>
+> ― Antoine de Saint-Exupéry, Airman's Odyssey
 
-[Read the
-instructions](https://github.com/martinthomson/i-d-template/blob/main/doc/TEMPLATE.md)
-for more information.
+This is the *Internet Draft* of the **Per Resource Events** Protocol.
 
-Once you have created your own repository, start work by:
+**Per Resource Events** is a minimal protocol built on top of HTTP that allows clients to receive notifications directly from any resource of interest in a secure manner.
 
-1. Set "Workflow permissions" to "Read and write permissions"
-   [in the repository settings](../../settings/actions#actions_default_workflow_permissions_write).
-
-2. Rename the `draft-todo-yourname-protocol.md` file
-   [here](../../edit/main/draft-todo-yourname-protocol.md).
+The **Per Resource Events** Protocol is predicated on the idea that the most intuitive source for notifications about changes made to a resource is the resource itself.

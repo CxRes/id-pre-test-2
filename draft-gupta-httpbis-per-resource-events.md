@@ -19,22 +19,22 @@
 # Change the file extension to match the format (.xml for XML, etc...)
 #
 ###
-title: "TODO - Your title"
-abbrev: "TODO - Abbreviation"
-category: info
+title: "Per Resource Events"
+abbrev: "prep"
+category: std
 
-docname: draft-todo-yourname-protocol-latest
-submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
+docname: draft-gupta-httpbis-per-resource-events-latest
+submissiontype: IETF
 number:
 date:
 consensus: true
 v: 3
 area: AREA
-workgroup: WG Working Group
+area: art
+workgroup: HTTPbis
 keyword:
- - next generation
- - unicorn
- - sparkling distributed ledger
+  - notifications
+  - pubsub
 venue:
   group: WG
   type: Working Group
@@ -45,9 +45,8 @@ venue:
 
 author:
  -
-    fullname: Your Name Here
-    organization: Your Organization Here
-    email: your.email@example.com
+    fullname: Rahul Gupta
+    email: cxres@protonmail.com
 
 normative:
 
