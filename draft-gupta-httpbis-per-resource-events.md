@@ -75,6 +75,8 @@ Per Resource Events is a minimal protocol built on top of HTTP that allows clien
 
 --- middle
 
+Minor change to draft for testing!
+
 <!-- Informative Sections -->
 
 {::include src/sections/introduction.md}
