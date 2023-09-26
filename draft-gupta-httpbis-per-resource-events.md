@@ -73,9 +73,9 @@ informative:
 
 Per Resource Events is a minimal protocol built on top of HTTP that allows clients to receive notifications directly from any resource of interest. The Per Resource Events Protocol (PREP) is predicated on the idea that the most intuitive source for notifications about changes made to a resource is the resource itself.
 
---- middle
-
 Minor change to draft for testing!
+
+--- middle
 
 <!-- Informative Sections -->
 
