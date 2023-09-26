@@ -3,9 +3,9 @@
 
 
 HTTP                                                            R. Gupta
-Internet-Draft                                         25 September 2023
+Internet-Draft                                         26 September 2023
 Intended status: Standards Track                                        
-Expires: 28 March 2024
+Expires: 29 March 2024
 
 
                           Per Resource Events
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 March 2024.
+   This Internet-Draft will expire on 29 March 2024.
 
 Copyright Notice
 
@@ -158,7 +158,7 @@ Table of Contents
 
    A client application that wishes to receive notifications about
    updates to a resource simply places a GET request on that resource
-   with just one additional =Accept-Events= header.  The server responds
+   with just one additional Accept-Events header.  The server responds
    by sending, first the current representation of the resource (though
    a client can request for this to be skipped), followed by
    notifications sent in response to resource events as parts of a
@@ -349,8 +349,8 @@ Table of Contents
       notifications not requested for, in an otherwise identical HTTP
       request.
 
-   Event Field  A parameter for a protocol item in the =Accept-Events=
-      header field or a member of the =Events= header field.
+   Event Field  A parameter for a protocol item in the Accept-Events
+      header field or a member of the Events header field.
 
 4.  Header Fields
 
@@ -365,24 +365,24 @@ Table of Contents
 
 4.1.  Accept-Events
 
-   The =Accept-Events= header field can be used by application clients
-   to specify their preferred protocol for receiving notifications.  For
-   example, the =Accept-Events= header field can be used to indicate
-   that the request is specifically limited to a small set of desired
+   The Accept-Events header field can be used by application clients to
+   specify their preferred protocol for receiving notifications.  For
+   example, the Accept-Events header field can be used to indicate that
+   the request is specifically limited to a small set of desired
    protocols, as in the case for notifications with the Per Resource
    Events Protocol.
 
-   When sent by a resource server in a response, the =Accept-Events=
+   When sent by a resource server in a response, the Accept-Events
    header field provides information about which notification protocols
    are preferred in a subsequent request to the same resource.
 
    An application client MAY generate a request for notifications
-   regardless of having received an =Accept-Events= header field.  The
+   regardless of having received an Accept-Events header field.  The
    information only provides advice for the sake of improving
    performance and reducing unnecessary network transfers.
 
    Conversely, an application client MUST NOT assume that receiving an
-   =Accept-Events= header field means that future requests will return
+   Accept-Events header field means that future requests will return
    notifications.  The content might change, the server might only
    support notifications requests at certain times or under certain
    conditions, or a different intermediary might process the next
@@ -390,16 +390,16 @@ Table of Contents
 
 4.1.1.  Validity
 
-   A recipient MUST ignore the =Accept-Events= header field received
-   with a request method that is unrecognized or for which notifications
+   A recipient MUST ignore the Accept-Events header field received with
+   a request method that is unrecognized or for which notifications
    response is not defined for a particular notifications protocol.
 
-   A recipient MUST ignore the =Accept-Events= header field received in
+   A recipient MUST ignore the Accept-Events header field received in
    response to a request method that is unrecognized or for which
    notifications discovery and/or response is not defined for a
    particular notifications protocol.
 
-   A recipient MUST ignore the =Accept-Events= header field that it does
+   A recipient MUST ignore the Accept-Events header field that it does
    not understand.
 
    Protocols MUST ensure that the semantics be so defined that these
@@ -408,7 +408,7 @@ Table of Contents
 
       |  *ISSUE*
       |  
-      |  Where a recipient receives an illegal =Accept-Events= header
+      |  Where a recipient receives an illegal Accept-Events header
       |  field, can we:
       |  
       |     *  Ignore it (as we do now)
@@ -416,12 +416,12 @@ Table of Contents
       |     *  Send an error message.  If so what could be the form of
       |        the error message?
 
-   A recipient MUST ignore the protocols specified in the
-   =Accept-Events= header field that they are not aware of.
+   A recipient MUST ignore the protocols specified in the Accept-Events
+   header field that they are not aware of.
 
 4.1.2.  Syntax
 
-   =Accept-Events= is a List structured ([HTTP-SF], Section 3.1) header
+   Accept-Events is a List structured ([HTTP-SF], Section 3.1) header
    field.  Its members MUST be of type string that identifies a
    notification protocol.  A protocol identifier MAY be followed with
    zero or more parameters defined by the given protocol, which MAY be
@@ -448,50 +448,50 @@ Table of Contents
 
 4.2.  Events
 
-   The =Events= header field is sent by a resource server to provide
-   event fields in response to a request for notifications.
+   The Events header field is sent by a resource server to provide event
+   fields in response to a request for notifications.
 
-   Where the =Accept-Events= header field sent in the request is
-   ignored, a resource server MUST NOT send the =Events= header field in
-   a response.
+   Where the Accept-Events header field sent in the request is ignored,
+   a resource server MUST NOT send the Events header field in a
+   response.
 
-   Conversely, a resource server MUST send the =Events= header field in
-   a response, if the =Accept-Events= header field sent in the request
-   is not ignored.
+   Conversely, a resource server MUST send the Events header field in a
+   response, if the Accept-Events header field sent in the request is
+   not ignored.
 
 4.2.1.  Validity
 
-   If the =Events= header field is sent in response to a request that
-   does not contain the =Accept-Events= header field, the recipient MUST
-   treat the response as invalid.
+   If the Events header field is sent in response to a request that does
+   not contain the Accept-Events header field, the recipient MUST treat
+   the response as invalid.
 
       |  *ISSUE*
       |  
-      |  Does compliance with HTTP demand that we ignore the =Events=
+      |  Does compliance with HTTP demand that we ignore the Events
       |  header?  How will recipient process such a response that
       |  presumably contains notifications that it has not requested?
 
-   If the response contains a =Events= header field that the recipient
-   does not understand or the =Events= header field specifies a protocol
+   If the response contains a Events header field that the recipient
+   does not understand or the Events header field specifies a protocol
    that the recipient does not understand, the recipient MUST NOT
    process the response.  A proxy that receives such a message SHOULD
    forward it downstream.
 
       |  *ISSUE*
       |  
-      |  Could the constraints on the =Events= field not being
-      |  understood be more specific?
+      |  Could the constraints on the Events field not being understood
+      |  be more specific?
       |  
       |  Such as:
       |  
-      |        "A recipient MUST ignore the =Events= header field
-      |        received in response to a request method that is
-      |        unrecognized or for which notifications response is not
-      |        defined for a particular notifications protocol."
+      |        "A recipient MUST ignore the Events header field received
+      |        in response to a request method that is unrecognized or
+      |        for which notifications response is not defined for a
+      |        particular notifications protocol."
 
 4.2.2.  Syntax
 
-   =Events= is a Dictionary structured ([HTTP-SF], Section 3.1) header
+   Events is a Dictionary structured ([HTTP-SF], Section 3.1) header
    field.  It MUST contain one member with the key protocol whose value
    identifies the notification protocol used in the response.  It MAY
    contain other members that are defined by the given notification
@@ -508,8 +508,8 @@ Table of Contents
    HTTP field MUST have identical semantics to that HTTP field, unless
    otherwise specified.
 
-   This specification restricts =Accept-Events= and =Events= as
-   Structured header fields [HTTP-SF].  From this it follows:
+   This specification restricts Accept-Events and Events as Structured
+   header fields [HTTP-SF].  From this it follows:
 
    *  An event field whose value is anything except an item without
       parameters MUST be specified in an Inner List ([HTTP-SF],
@@ -530,7 +530,7 @@ Table of Contents
    and GET ([HTTP], Section 9.3.1) are the only methods in response to
    which notifications are advertised.
 
-   A resource server MUST NOT send the =Accept-Events= header field with
+   A resource server MUST NOT send the Accept-Events header field with
    PREP as a protocol in response to a request with any method other
    than HEAD or GET.
 
@@ -538,14 +538,14 @@ Table of Contents
    the only method by which notifications are requested and for which
    notifications response is defined.
 
-   An application client MUST NOT send the =Accept-Events= header field
+   An application client MUST NOT send the Accept-Events header field
    with PREP as a protocol in a request with any method other than GET.
 
-   A resource server MUST NOT send the =Events= header field with the
+   A resource server MUST NOT send the Events header field with the
    parameter protocol with a value of PREP in response to a request with
    any method other than GET.
 
-   A resource server MUST NOT send the =Events= header field except in
+   A resource server MUST NOT send the Events header field except in
    response to a GET request.
 
 5.3.  Status Codes
@@ -554,16 +554,16 @@ Table of Contents
    ([HTTP], Section 15) to describe the result of the request for
    notifications and the semantics of notifications in the response.
 
-   In response to a request where =Accept-Events= header field indicates
+   In response to a request where Accept-Events header field indicates
    PREP as the preferred protocol, a resource server that supports
    notifications using the Per Resource Events Protocol MUST communicate
    the status code for the notifications response using the status
-   parameter in the =Events= header field.
+   parameter in the Events header field.
 
    For the limited context of notifications using the Per Resource
    Events Protocol, the status code communicated using the status
-   parameter in the =Events= header field MUST have identical semantics
-   to the corresponding HTTP status code, unless otherwise specified.
+   parameter in the Events header field MUST have identical semantics to
+   the corresponding HTTP status code, unless otherwise specified.
 
 6.  Discovery
 
@@ -582,7 +582,7 @@ Table of Contents
    In the response to a HEAD request, a resource server that does not
    provide notifications for the target resource using the Per Resource
    Events Protocol MUST NOT list PREP as as one of the available
-   protocols in the =Accept-Events= header field.
+   protocols in the Accept-Events header field.
 
    HEAD /foo HTTP/1.1
    Host: example.org
@@ -593,7 +593,7 @@ Table of Contents
 
    In response to a HEAD request, a resource server that serves
    notifications for the target resource using the Per Resource Events
-   Protocol SHOULD include the =Accept-Events= header field, which MUST
+   Protocol SHOULD include the Accept-Events header field, which MUST
    list PREP as one of the available protocols.
 
    Associated with PREP list item, the resource server MUST include an
@@ -628,7 +628,7 @@ Table of Contents
    Protocol from a resource, an application client sends a GET request
    to resource server, which:
 
-   *  MUST include the =Accept-Events= header field, which:
+   *  MUST include the Accept-Events header field, which:
 
       -  MUST list PREP as a preferred notification protocol.
 
@@ -658,7 +658,7 @@ Table of Contents
                     Figure 3: Request for Notifications
 
    A resource server MUST ignore event fields for PREP notifications in
-   the =Accept-Events= header that it does not recognize or implement.
+   the Accept-Events header that it does not recognize or implement.
 
 8.  Response without Notifications
 
@@ -673,9 +673,9 @@ Table of Contents
    Resource Events Protocol MUST NOT:
 
    *  list PREP as as one of the available protocols in the
-      =Accept-Events= header field, if sent in the response.
+      Accept-Events header field, if sent in the response.
 
-   *  send the =Events= header field in the response with the protocol
+   *  send the Events header field in the response with the protocol
       event field set to PREP.
 
       |  *Implementation Guidance*
@@ -704,7 +704,7 @@ Table of Contents
    A resource server that does not serve PREP notifications, on account
    of the response not having one of the above-mentioned status codes:
 
-   *  SHOULD include the =Events= header fields where:
+   *  SHOULD include the Events header fields where:
 
       -  the protocol event field MUST be set to a value of PREP,
 
@@ -720,7 +720,7 @@ Table of Contents
    A resource server unable to serve PREP notifications, even when the
    request results in a status code mentioned in Section 8.2:
 
-   *  SHOULD include the =Events= header fields in the response where:
+   *  SHOULD include the Events header fields in the response where:
 
       -  the protocol event field MUST be set to a value of PREP,
 
@@ -742,7 +742,7 @@ Table of Contents
          multipart ([HTTP], Section 8.3.3).  The subtype will depend on
          whether the base response is included in the response body.
 
-      -  =Events= which MUST include the following event fields:
+      -  Events which MUST include the following event fields:
 
          o  protocol set to the value PREP.
 
@@ -760,8 +760,8 @@ Table of Contents
 
    *  SHOULD include the following header fields in the response:
 
-      -  Vary ([HTTP], Section 12.5.5) which MUST include
-         =Accept-Events= as one of the values.
+      -  Vary ([HTTP], Section 12.5.5) which MUST include Accept-Events
+         as one of the values.
 
       -  Last-Modified ([HTTP], Section 8.8.2).
 
@@ -769,7 +769,7 @@ Table of Contents
 
    *  MAY include the following header fields in the response:
 
-      -  =Accept-Events= which MUST list PREP as one of the available
+      -  Accept-Events which MUST list PREP as one of the available
          notification protocols.  Associated with the PREP list item,
          the resource server:
 
@@ -872,7 +872,7 @@ Table of Contents
    A resource server MUST end the notification response in any one of
    the following scenarios:
 
-   *  Once the time specified in the expires parameter of the =Events=
+   *  Once the time specified in the expires parameter of the Events
       header field has elapsed.
 
    *  Immediately after sending a notification upon a DELETE request on
@@ -903,7 +903,7 @@ Table of Contents
 
    An application clients MAY specify additional parameters to message/
    rfc822 notification media-type in the accept event field associated
-   with the PREP list item in the =Accept-Events= header field of the
+   with the PREP list item in the Accept-Events header field of the
    request.
 
 10.2.  Notification
@@ -1134,30 +1134,26 @@ Index
       A
 
          Accept-Events  Section 1.2, Paragraph 1; Section 3.5, Paragraph
-            2.6.1; Section 4.1, Paragraph 1; Section 4.1, Paragraph 1;
-            Section 4.1, Paragraph 2; Section 4.1, Paragraph 3;
-            Section 4.1, Paragraph 4; Section 4.1.1, Paragraph 1;
-            Section 4.1.1, Paragraph 2; Section 4.1.1, Paragraph 3;
-            Section 4.1.1, Paragraph 5.2; Section 4.1.1, Paragraph 6;
-            Section 4.1.2, Paragraph 1; *_Section 4.2_*; Section 4.2,
-            Paragraph 2; Section 5.1, Paragraph 2; Section 5.2,
-            Paragraph 2; Section 5.2, Paragraph 4; Section 5.3,
-            Paragraph 2; Section 6.2, Paragraph 1; Section 6.3,
-            Paragraph 1; Section 7, Paragraph 3.1.1; Section 7,
-            Paragraph 6; Section 8.1, Paragraph 3, Item 1; Section 9.1,
-            Paragraph 2, Item 2.2.1; Section 9.1, Paragraph 2.3.2.1.1;
-            Section 10.1, Paragraph 1
+            2.6.1; *_Section 4.1_*; Section 4.2, Paragraph 2;
+            Section 4.2, Paragraph 3; Section 4.2.1, Paragraph 1;
+            Section 5.1, Paragraph 2; Section 5.2, Paragraph 2;
+            Section 5.2, Paragraph 4; Section 5.3, Paragraph 2;
+            Section 6.2, Paragraph 1; Section 6.3, Paragraph 1;
+            Section 7, Paragraph 3.1.1; Section 7, Paragraph 6;
+            Section 8.1, Paragraph 3, Item 1; Section 9.1, Paragraph 2,
+            Item 2.2.1; Section 9.1, Paragraph 2.3.2.1.1; Section 10.1,
+            Paragraph 1
          application client  Section 3.4, Paragraph 2.2.1; Section 3.5,
-            Paragraph 2.2.1; *_Section 4.1_*; Section 4.1, Paragraph 3;
-            Section 4.1, Paragraph 4; Section 5.2, Paragraph 4;
-            Section 6, Paragraph 1; Section 6.1, Paragraph 1; Section 7,
-            Paragraph 1; Section 7, Paragraph 2; Section 7, Paragraph 3,
-            Item 1.2.1.2.1; Section 8.3, Paragraph 1; Section 9.2,
-            Paragraph 1; Section 9.2.2, Paragraph 3.2; Section 9.3,
-            Paragraph 1; Section 9.4, Paragraph 4.2; Section 10,
-            Paragraph 1; Section 10.1, Paragraph 1; Section 10.2,
-            Paragraph 1; Section 10.3, Paragraph 11; Section 10.3,
-            Paragraph 12
+            Paragraph 2.2.1; Section 4.1, Paragraph 1; Section 4.1,
+            Paragraph 3; Section 4.1, Paragraph 4; Section 5.2,
+            Paragraph 4; Section 6, Paragraph 1; Section 6.1, Paragraph
+            1; Section 7, Paragraph 1; Section 7, Paragraph 2;
+            Section 7, Paragraph 3, Item 1.2.1.2.1; Section 8.3,
+            Paragraph 1; Section 9.2, Paragraph 1; Section 9.2.2,
+            Paragraph 3.2; Section 9.3, Paragraph 1; Section 9.4,
+            Paragraph 4.2; Section 10, Paragraph 1; Section 10.1,
+            Paragraph 1; Section 10.2, Paragraph 1; Section 10.3,
+            Paragraph 11; Section 10.3, Paragraph 12
 
       B
 
@@ -1187,16 +1183,12 @@ Index
             Paragraph 1; Section 10.3, Paragraph 11; Section 10.3,
             Paragraph 12
          Events  Section 3.5, Paragraph 2.6.1; *_Section 4.2_*;
-            Section 4.2, Paragraph 1; Section 4.2, Paragraph 2;
-            Section 4.2, Paragraph 3; Section 4.2.1, Paragraph 1;
-            Section 4.2.1, Paragraph 2.2; Section 4.2.1, Paragraph 3;
-            Section 4.2.1, Paragraph 4.2; Section 4.2.1, Paragraph
-            4.4.1.1; Section 4.2.2, Paragraph 1; Section 5.1, Paragraph
-            2; Section 5.2, Paragraph 5; Section 5.2, Paragraph 6;
-            Section 5.3, Paragraph 2; Section 5.3, Paragraph 3;
-            Section 8.1, Paragraph 3, Item 2; Section 8.2, Paragraph
-            4.1.1; Section 8.3, Paragraph 3.1.1; Section 9.1, Paragraph
-            2.1.2.3.1; Section 9.4, Paragraph 2, Item 1
+            Section 5.1, Paragraph 2; Section 5.2, Paragraph 5;
+            Section 5.2, Paragraph 6; Section 5.3, Paragraph 2;
+            Section 5.3, Paragraph 3; Section 8.1, Paragraph 3, Item 2;
+            Section 8.2, Paragraph 4.1.1; Section 8.3, Paragraph 3.1.1;
+            Section 9.1, Paragraph 2.1.2.3.1; Section 9.4, Paragraph 2,
+            Item 1
 
       N
 
@@ -1219,12 +1211,15 @@ Index
             Item 2; Section 2.4, Paragraph 1; Section 2.4, Paragraph 1;
             Section 2.4, Paragraph 1; Section 2.4, Paragraph 2;
             Section 3.5; Section 3.5, Paragraph 2.4.1; Section 4,
-            Paragraph 1; *_Section 4.1_*; Section 4.1, Paragraph 1;
-            Section 4.1, Paragraph 3; Section 4.1, Paragraph 4;
-            Section 4.1.1, Paragraph 1; Section 4.1.1, Paragraph 2;
-            Section 4.1.2, Paragraph 1; Section 4.1.2, Paragraph 4;
-            Section 4.1.2, Paragraph 5; *_Section 4.2_*; Section 4.2,
-            Paragraph 1; Section 4.2.1, Paragraph 4.4.1.1;
+            Paragraph 1; Section 4.1, Paragraph 1; Section 4.1,
+            Paragraph 1; Section 4.1, Paragraph 2; Section 4.1,
+            Paragraph 3; Section 4.1, Paragraph 4; Section 4.1,
+            Paragraph 4; Section 4.1.1, Paragraph 1; Section 4.1.1,
+            Paragraph 1; Section 4.1.1, Paragraph 2; Section 4.1.1,
+            Paragraph 2; Section 4.1.2, Paragraph 1; Section 4.1.2,
+            Paragraph 4; Section 4.1.2, Paragraph 5; Section 4.2,
+            Paragraph 1; Section 4.2.1, Paragraph 2.2; Section 4.2.1,
+            Paragraph 4.4.1.1; Section 4.2.1, Paragraph 4.4.1.1;
             Section 4.2.2, Paragraph 1; Section 4.2.2, Paragraph 1;
             Section 5.1, Paragraph 1; Section 5.2, Paragraph 1;
             Section 5.2, Paragraph 3; Section 5.2, Paragraph 3;
@@ -1266,11 +1261,11 @@ Index
       R
 
          resource server  Section 3.4, Paragraph 2.2.1; Section 4.1,
-            Paragraph 2; *_Section 4.2_*; Section 4.2, Paragraph 2;
-            Section 4.2, Paragraph 3; Section 5.2, Paragraph 2;
-            Section 5.2, Paragraph 5; Section 5.2, Paragraph 6;
-            Section 5.3, Paragraph 2; Section 6, Paragraph 1;
-            Section 6.1, Paragraph 1; Section 6.2, Paragraph 1;
+            Paragraph 2; Section 4.2, Paragraph 1; Section 4.2,
+            Paragraph 2; Section 4.2, Paragraph 3; Section 5.2,
+            Paragraph 2; Section 5.2, Paragraph 5; Section 5.2,
+            Paragraph 6; Section 5.3, Paragraph 2; Section 6, Paragraph
+            1; Section 6.1, Paragraph 1; Section 6.2, Paragraph 1;
             Section 6.3, Paragraph 1; Section 6.3, Paragraph 2;
             Section 6.3, Paragraph 4.2; Section 6.3, Paragraph 4.3;
             Section 7, Paragraph 2; Section 7, Paragraph 3, Item 2;
