@@ -19,6 +19,8 @@ Abstract
    the idea that the most intuitive source for notifications about
    changes made to a resource is the resource itself.
 
+   Minor change to draft for testing!
+
 About This Document
 
    This note is to be removed before publishing as an RFC.
