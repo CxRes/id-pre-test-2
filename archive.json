@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-10-03T01:18:25.287695+00:00",
+  "timestamp": "2023-10-05T01:18:06.944172+00:00",
   "repo": "CxRes/id-pre-test-2",
   "labels": [
     {
@@ -49,6 +49,23 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 1,
+      "id": "I_kwDOKYN-Zc5yvmvc",
+      "title": "Handling Illegal `Accept-Events` Header",
+      "url": "https://github.com/CxRes/id-pre-test-2/issues/1",
+      "state": "OPEN",
+      "author": "CxRes",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Where a recipient receives an illegal `Accept-Events` header field, can we:\r\n\r\n+ Ignore it (as we do now)?\r\n+ Send an error message. If so what could be the form of the error message?",
+      "createdAt": "2023-10-03T23:04:47Z",
+      "updatedAt": "2023-10-03T23:04:47Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
   "pulls": []
 }
